@@ -40,7 +40,9 @@
       </a-layout-header>
       <a-layout-content style="margin: 16px; height: 100%">
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          <router-view></router-view>
+          <suspense>
+            <router-view></router-view>
+          </suspense>
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center; padding: 8px 50px">

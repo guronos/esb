@@ -10,6 +10,7 @@ declare module 'vue' {
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
     ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
     ACol: typeof import('ant-design-vue/es')['Col']
     AFlex: typeof import('ant-design-vue/es')['Flex']
     ALayout: typeof import('ant-design-vue/es')['Layout']
@@ -21,6 +22,7 @@ declare module 'vue' {
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ARow: typeof import('ant-design-vue/es')['Row']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
+    ATypographyTitle: typeof import('ant-design-vue/es')['TypographyTitle']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
