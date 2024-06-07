@@ -1,4 +1,11 @@
-export const getFetch = async (endpoint: string, payload = false, method = 'GET') => {
+export const getFetch = async (
+  endpoint: string,
+  payload: object | false = false,
+  method = 'GET'
+) => {
+  console.log(payload, method)
+  if (payload && method === 'GET') method = 'POST'
+  console.log(payload, method)
   const headers = new Headers()
   headers.append('Content-Type', payload ? 'application/json;charset=utf-8' : 'text/plain')
   const options = {
