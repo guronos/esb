@@ -1,26 +1,34 @@
 <template>
   <div>
-    <div class="table">
-      <div v-for="(day, dayKey) in week" :key="dayKey" class="column">
-        <div class="column__header">
-          <div class="column-text">{{ day.humanDate }}</div>
-        </div>
-        <div class="column_body">
-          <template v-for="entryReminder in reminders[day.timestamp]" :key="entryReminder.id">
-            <el-card class="reminder__card">
-              <template #header>
-                <div class="card-header">
-                  <span>{{ entryReminder.title }}</span>
-                </div>
-              </template>
-              <p class="text item">{{ entryReminder.body }}</p>
-              <template #footer>Footer content</template>
-            </el-card>
-          </template>
+    <div class="reminders_add">
+      <el-date-picker v-model="value1" type="week" format="[Week] ww" placeholder="Pick a week" />
+      <el-button type="primary">Добавить запись</el-button>
+    </div>
+    <div v-if="Object.keys(reminders).length">
+      <div class="table">
+        <div v-for="(day, dayKey) in week" :key="dayKey" class="column">
+          <div class="column__header">
+            <div class="column-text">{{ day.humanDate }}</div>
+          </div>
+          <div class="column_body">
+            <template v-for="entryReminder in reminders[day.timestamp]" :key="entryReminder.id">
+              <el-card class="reminder__card">
+                <template #header>
+                  <div class="card-header">
+                    <span>{{ entryReminder.title }}</span>
+                  </div>
+                </template>
+                <p class="text item">{{ entryReminder.body }}</p>
+                <template #footer>Footer content</template>
+              </el-card>
+            </template>
+          </div>
         </div>
       </div>
     </div>
+    <div v-else>Записи на выбранное время отсутствуют</div>
   </div>
+
   <!-- <a-flex justify="flex-end">
     <a-button type="primary" @click.stop="openModal"
       ><PlusOutlined :style="{ color: '#fff' }" />Добавить напоминание</a-button
@@ -103,14 +111,12 @@
 <script setup lang="ts">
 import { getWeek, getStartDay } from '@/helpers/calendar'
 import { getFetch } from '@/helpers/main'
-// import { PlusOutlined } from '@ant-design/icons-vue'
 import { useMainStore } from '@/stores/mainState'
 import { reactive, ref, toRaw } from 'vue'
 import type { UnwrapRef } from 'vue'
 import type { Entry, RemindersFromDay } from './types'
-// import type { Rule } from 'ant-design-vue/es/form'
-// import dayjs, { Dayjs } from 'dayjs'
 
+const value1 = ref('')
 const formRef = ref()
 const labelCol = { span: 6, offset: 0 }
 const wrapperCol = { span: 42, offset: 1 }
@@ -161,7 +167,12 @@ const closeModal = () => {
 
 const week: string[] = getWeek(Date.now())
 const reminders = ref(
-  await getFetch('http://localhost:3000/reminders/')
+  await getFetch('http://localhost:3000/reminders/list', {
+    filter: {
+      dateStart: 1718485200,
+      dateEnd: 1718571600
+    }
+  })
     .then((arr) => {
       const remindersFromDay: RemindersFromDay = {}
       arr.forEach((element: Entry) => {
@@ -183,6 +194,10 @@ function addReminder(reminder) {
 console.log(week, staticData)
 </script>
 <style scoped>
+.reminders_add {
+  display: flex;
+  justify-content: end;
+}
 .table {
   max-height: 85vh;
   display: flex;
@@ -215,6 +230,7 @@ console.log(week, staticData)
   text-transform: uppercase;
 }
 .column_body {
+  min-height: 20rem;
   display: flex;
   flex-direction: column;
   align-items: center;
