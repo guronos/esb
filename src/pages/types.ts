@@ -12,6 +12,20 @@ export interface Riminder {
   priorityType: E_Priority_Reminders
   typeAction: E_Types_Actions
 }
+export interface WeekDateData {
+  humanDate: string
+  timestamp: string
+}
+
+export interface StaticDataDropDown {
+  priorityType?: StaticDataDropDownObject[]
+  typeAction?: StaticDataDropDownObject[]
+}
+interface StaticDataDropDownObject {
+  value: number
+  label: string
+}
+
 enum E_Priority_Reminders {
   critical = 1,
   high = 2,

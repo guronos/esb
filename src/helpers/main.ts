@@ -23,7 +23,7 @@ export const getFetch = async (
   headers.append('Access-Control-Allow-Credentials', 'include')
   headers.append('Access-Control-Allow-Origin', 'http://localhost:5173')
   headers.append('Content-Type', payload ? 'application/json;charset=utf-8' : 'text/plain')
-  const options = {
+  const options: RequestInit = {
     method: method.toUpperCase(),
     credentials: 'include',
     headers,

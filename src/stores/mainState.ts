@@ -1,7 +1,8 @@
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref, readonly } from 'vue'
 import { defineStore } from 'pinia'
 import { getFetch } from '@/helpers/main'
 import { urlBack } from '@/constansDev'
+import type { StaticDataDropDown } from '@/pages/types'
 
 export const useMainStore = defineStore('mainState', () => {
   const authState = ref(false)
@@ -16,7 +17,7 @@ export const useMainStore = defineStore('mainState', () => {
   const userData = ref({
     userId: 2
   })
-  const staticDataDropDown = ref({
+  const staticDataDropDown: StaticDataDropDown = {
     priorityType: [
       {
         value: 1,
@@ -53,7 +54,7 @@ export const useMainStore = defineStore('mainState', () => {
         label: 'Прочее'
       }
     ]
-  })
+  }
 
   return { userData, staticDataDropDown, getAuthState, checkAuthState, setAuthState }
 })
