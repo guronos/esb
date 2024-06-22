@@ -1,12 +1,12 @@
 export interface RemindersFromDay {
-  [key: string]: Array<Entry>
+  [key: string]: Array<Riminder>
 }
 
-export interface Entry {
+export interface Riminder {
   title: string
   body: string
   status: E_Status_Reminders
-  dateAction: Date
+  dateAction: number | string
   author: number
   user: number
   priorityType: E_Priority_Reminders

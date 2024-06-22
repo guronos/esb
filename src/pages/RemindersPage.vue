@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="reminders_add">
-      <el-date-picker v-model="value1" type="week" format="[Week] ww" placeholder="Pick a week" />
-      <el-button type="primary">Добавить запись</el-button>
+      <el-date-picker
+        v-model="weekFerstDay"
+        type="week"
+        format="DD/MM/YY"
+        placeholder="Выбор недели"
+        @change="changeDate"
+      />
+      <el-button type="primary" @click="openModal">Добавить запись</el-button>
     </div>
     <div v-if="Object.keys(reminders).length">
       <div class="table">
@@ -29,111 +35,77 @@
     <div v-else>Записи на выбранное время отсутствуют</div>
   </div>
 
-  <!-- <a-flex justify="flex-end">
-    <a-button type="primary" @click.stop="openModal"
-      ><PlusOutlined :style="{ color: '#fff' }" />Добавить напоминание</a-button
+  <el-dialog v-model="stateModal" title="Создание напоминания">
+    <el-form
+      ref="validateFormRef"
+      :rules="validateForm"
+      :model="newReminder"
+      label-position="right"
+      label-width="auto"
     >
-  </a-flex>
-  <div class="table">
-    <div v-for="(day, idx) in week" :key="idx" class="column">
-      <div class="column__header">
-        <a-typography-title :level="5" class="header_landing-letter">{{
-          day.humanDate
-        }}</a-typography-title>
+      <el-form-item label="Заголовок" prop="title" reset-field="true">
+        <el-input v-model="newReminder.title" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="Текст напоминания" prop="body">
+        <el-input v-model="newReminder.body" type="textarea" />
+      </el-form-item>
+      <el-form-item label="Тип">
+        <el-select v-model="newReminder.typeAction" placeholder="Выберите тип события">
+          <el-option
+            v-for="type in staticData.typeAction"
+            :key="type.value"
+            :label="type.label"
+            :value="type.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Приоритет">
+        <el-select v-model="newReminder.priorityType" placeholder="Выберите приоритет">
+          <el-option
+            v-for="priority in staticData.priorityType"
+            :key="priority.value"
+            :label="priority.label"
+            :value="priority.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Выберите дату события" prop="dateAction">
+        <el-date-picker
+          v-model="newReminder.dateAction"
+          type="datetime"
+          placeholder="Выбрать дату"
+          format="hh:mm:ss DD/MM/YY"
+          value-format="X"
+        />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="closeModal(validateFormRef)">Отменить</el-button>
+        <el-button type="primary" @click="sendForm(validateFormRef)"> Создать </el-button>
       </div>
-      <div v-if="Object.keys(reminders).length" class="column_body">
-        <a-card
-          v-for="item in reminders[day.timestamp]"
-          :key="item.id"
-          :title="item.title"
-          style="width: 95%"
-        >
-          <p>{{ item.body }}</p>
-        </a-card>
-      </div>
-    </div>
-  </div>
-  <a-modal
-    v-model:open="stateModal"
-    title="Title"
-    width="600px"
-    :confirm-loading="confirmLoading"
-    :footer="null"
-  >
-    <div>
-      <a-form
-        ref="formRef"
-        :model="newReminder"
-        :rules="rules"
-        :label-col="labelCol"
-        :wrapper-col="wrapperCol"
-      >
-        <a-form-item ref="title" required label="Заголовок" name="title">
-          <a-input v-model:value="newReminder.title" />
-        </a-form-item>
-        <a-form-item label="Дата напоминания" required name="dateAction">
-          <a-date-picker
-            v-model:value="newReminder.dateAction"
-            show-time
-            type="date"
-            placeholder="Выберите дату"
-            style="width: 100%"
-          />
-        </a-form-item>
-        <a-form-item label="Описание" name="body">
-          <a-textarea v-model:value="newReminder.body" />
-        </a-form-item>
-        <a-form-item label="Приоритет" name="priority">
-          <a-select
-            v-model:value="newReminder.priorityType"
-            style="width: 120px"
-            :options="staticData.priorityType"
-            @change="handleChangeDropDown($event, 'priorityType')"
-          />
-        </a-form-item>
-        <a-form-item label="Тип напоминания" name="typeActions">
-          <a-select
-            v-model:value="newReminder.typeAction"
-            style="width: 120px"
-            :options="staticData.typeAction"
-            @change="handleChangeDropDown($event, 'typeActions')"
-          />
-        </a-form-item>
-        <a-form-item :wrapper-col="{ span: 24, offset: 11 }">
-          <a-button type="primary" @click="sendForm">Добавить</a-button>
-          <a-button style="margin-left: 10px" @click="resetForm">Очистить</a-button>
-          <a-button style="margin-left: 10px" @click="closeModal">Закрыть</a-button>
-        </a-form-item>
-      </a-form>
-    </div>
-  </a-modal> -->
+    </template>
+  </el-dialog>
 </template>
 <script setup lang="ts">
 import { getWeek, getStartDay } from '@/helpers/calendar'
 import { getFetch } from '@/helpers/main'
 import { useMainStore } from '@/stores/mainState'
 import { reactive, ref, toRaw } from 'vue'
-import type { UnwrapRef } from 'vue'
-import type { Entry, RemindersFromDay } from './types'
+import type { Ref } from 'vue'
+import type { Riminder, RemindersFromDay } from './types'
+import type { FormInstance, FormRules } from 'element-plus'
 
-const value1 = ref('')
-const formRef = ref()
-const labelCol = { span: 6, offset: 0 }
-const wrapperCol = { span: 42, offset: 1 }
-// const formState: UnwrapRef<FormState> = reactive({
-//   name: '',
-//   region: undefined,
-//   date1: undefined,
-//   delivery: false,
-//   type: [],
-//   resource: '',
-//   desc: ''
-// })
+const weekFerstDay = ref('')
+const changeDate = (e: Date) => {
+  week.value = getWeek(e || Date.now())
+  getReminders()
+}
 
 const userData = useMainStore().userData
 const staticData = useMainStore().staticDataDropDown
 
-const newReminder: Entry = reactive({
+const newReminder = reactive<Riminder>({
   title: '',
   body: '',
   dateAction: '',
@@ -144,33 +116,54 @@ const newReminder: Entry = reactive({
   user: userData.userId
 })
 const stateModal = ref<boolean>(false)
-const confirmLoading = ref<boolean>(false)
 const openModal = () => {
   stateModal.value = true
 }
-const closeModal = () => {
+const closeModal = (formEl) => {
+  formEl.resetFields()
   stateModal.value = false
-  confirmLoading.value = false
 }
-// const sendForm = async () => {
-//   confirmLoading.value = true
-//   formRef.value.validate().then(async () => {
-//     newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
-//     // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
-//     const repsonseRaw = await getFetch('http://localhost:3000/reminders/', newReminder)
-//     // const response = await repsonseRaw.json()
-//     console.log(repsonseRaw)
-//     addReminder(repsonseRaw)
-//     closeModal()
-//   })
-// }
+const validateForm = reactive<FormRules<Riminder>>({
+  title: [
+    { required: true, message: 'Поле должно быть заполнено', trigger: 'change' },
+    { min: 1, max: 20, message: 'Длина заколовка должна превышать 20 символов', trigger: 'blur' }
+  ],
+  body: [{ required: true, message: 'Поле должно быть заполнено', trigger: 'change' }],
+  dateAction: [
+    {
+      type: 'string',
+      required: true,
+      message: 'Выберите дату события',
+      trigger: 'change'
+    }
+  ]
+})
+const validateFormRef = ref<FormInstance>()
+const sendForm = async (formEl: FormInstance | undefined) => {
+  console.log(formEl)
+  if (!formEl) return
+  await formEl.validate(async (valid, fields) => {
+    // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
+    // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
+    console.log(valid, fields)
+    if (!valid) return
+    // newReminder.dateAction = Number(newReminder.dateAction)
+    const repsonseRaw = await getFetch('http://localhost:3000/reminders/create', newReminder)
+    // const response = await repsonseRaw.json()
+    console.log(repsonseRaw)
+    addReminder(repsonseRaw)
+    formEl.resetFields()
+    stateModal.value = false
+  })
+}
 
-const week: string[] = getWeek(Date.now())
-const reminders = ref(
-  await getFetch('http://localhost:3000/reminders/list', {
+const week: Ref<string[]> = ref(getWeek(Date.now()))
+const reminders = ref([])
+const getReminders = async () => {
+  reminders.value = await getFetch('http://localhost:3000/reminders/list', {
     filter: {
-      dateStart: 1718485200,
-      dateEnd: 1718571600
+      dateStart: week.value[0].timestamp / 1000,
+      dateEnd: week.value.at(-1).timestamp / 1000
     }
   })
     .then((arr) => {
@@ -184,7 +177,9 @@ const reminders = ref(
       return remindersFromDay
     })
     .catch()
-)
+}
+getReminders()
+
 function addReminder(reminder) {
   const timestamp = getStartDay(reminder.dateAction)
   if (!reminders.value.hasOwnProperty(timestamp)) reminders.value[timestamp] = []
