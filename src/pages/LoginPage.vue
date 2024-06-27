@@ -40,6 +40,7 @@
       <el-button @click="resetForm(formRef)">Очистить</el-button>
     </el-form-item>
   </el-form>
+    <router-link to="/registration">Зарегистрироватся</router-link>
 </template>
 
 <script lang="ts" setup>

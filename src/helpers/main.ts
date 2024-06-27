@@ -7,7 +7,7 @@ export const getFetch = async (
   endpoint: string,
   payload: object | false = false,
   method = 'GET'
-) => {
+):Promise<any> => {
   console.log(endpoint, payload, method)
   // if (payload.filter) {
   //   const query = {}

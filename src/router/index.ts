@@ -45,6 +45,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/pages/LoginPage.vue')
+    },
+    {
+      path: '/registration',
+      name: 'registration',
+      component: () => import('@/pages/RegistrationPage.vue')
     }
   ]
 })
@@ -54,6 +59,7 @@ router.beforeEach(async (to, from) => {
   const mainStore = useMainStore()
   console.log('mainStore.getAuthState', mainStore.getAuthState)
   if (mainStore.getAuthState) return true
+  else if (to.path === '/registration') return true
   const data = await mainStore.checkAuthState()
   const checkState = data.status === 200
   mainStore.setAuthState(checkState)

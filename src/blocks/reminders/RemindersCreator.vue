@@ -36,9 +36,9 @@
       <el-form-item label="Выберите дату события" prop="dateAction">
         <el-date-picker
           v-model="newReminder.dateAction"
-          type="datetime"
+          type="date"
           placeholder="Выбрать дату"
-          format="hh:mm:ss DD/MM/YY"
+          format="hh:mm:ss DD.MM.YY"
           value-format="X"
         />
       </el-form-item>
@@ -56,7 +56,7 @@ import { getFetch } from '@/helpers/main'
 import type { Riminder, StaticDataDropDown } from '@/pages/types'
 import { useMainStore } from '@/stores/mainState'
 import type { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref, defineEmits, type Ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'addingReminder', addingReminder: object): void
@@ -69,8 +69,8 @@ const stateModal = ref<boolean>(false)
 const openModal = () => {
   stateModal.value = true
 }
-const closeModal = (formEl) => {
-  formEl.resetFields()
+const closeModal = (formEl: FormInstance | undefined) => {
+  if (formEl) formEl.resetFields()
   stateModal.value = false
 }
 const newReminder = reactive<Riminder>({
@@ -101,19 +101,11 @@ const validateForm = reactive<FormRules<Riminder>>({
 })
 const validateFormRef = ref<FormInstance>()
 const sendForm = async (formEl: FormInstance | undefined) => {
-  console.log(formEl)
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
-    // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
-    // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
-    console.log(valid, fields)
     if (!valid) return
-    // newReminder.dateAction = Number(newReminder.dateAction)
-    const repsonseRaw = await getFetch('http://localhost:3000/reminders/create', newReminder)
-    // const response = await repsonseRaw.json()
-    console.log(repsonseRaw)
-    emit('addingReminder', repsonseRaw)
-    // addReminder(repsonseRaw)
+    const responseRaw = await getFetch('http://localhost:3000/reminders/create', newReminder)
+    emit('addingReminder', responseRaw)
     formEl.resetFields()
     stateModal.value = false
   })

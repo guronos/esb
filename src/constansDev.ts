@@ -1,1 +1,1 @@
-export const urlBack = 'http://localhost:3000/'
+export const urlBack: string = 'http://localhost:3000/'

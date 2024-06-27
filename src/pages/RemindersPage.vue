@@ -8,7 +8,12 @@
         placeholder="Выбор недели"
         @change="changeDate"
       />
-      <el-button type="primary" @click="modalCreator.openModal()">Добавить запись</el-button>
+      <el-button type="primary" @click="modalCreator.openModal()">
+          <el-icon>
+              <Plus />
+          </el-icon>
+          <span class="_text-btn">Добавить запись</span>
+      </el-button>
     </div>
     <div v-if="Object.keys(reminders).length">
       <div class="table">
@@ -18,13 +23,31 @@
           </div>
           <div class="column_body">
             <template v-for="entryReminder in reminders[day.timestamp]" :key="entryReminder.id">
-              <el-card class="reminder__card">
+              <el-card class="reminder__card" shadow="hover">
                 <template #header>
-                  <div class="card-header">
-                    <span>{{ entryReminder.title }}</span>
+                  <div class="card_header">
+                    <div>{{ entryReminder.title }}</div>
+                      <div class="card_actions">
+                          <div class="card_actions-switcher">
+                              <div class="card_arrays-wrapper">
+                                  <el-icon><DArrowLeft /></el-icon>
+                              </div>
+                          </div>
+                          <div class="card_main-actions-wrap">
+                              <div class="card_done">
+                                  <el-icon><Select /></el-icon>
+                              </div>
+                              <div class="card_edit">
+                                  <el-icon><EditPen /></el-icon>
+                              </div>
+                              <div class="card_delete">
+                                  <el-icon><Close /></el-icon>
+                              </div>
+                          </div>
+                      </div>
                   </div>
                 </template>
-                <p class="text item">{{ entryReminder.body }}</p>
+                <p class="text card_desc">{{ entryReminder.body }}</p>
                 <template #footer>Footer content</template>
               </el-card>
             </template>
@@ -40,11 +63,8 @@
 import RemindersCreator from '@/blocks/reminders/RemindersCreator.vue'
 import { getWeek, getStartDay } from '@/helpers/calendar'
 import { getFetch } from '@/helpers/main'
-import { useMainStore } from '@/stores/mainState'
-import { reactive, ref, toRaw } from 'vue'
-import type { Ref } from 'vue'
+import { ref, } from 'vue'
 import type { Riminder, RemindersFromDay, WeekDateData } from './types'
-import type { FormInstance, FormRules } from 'element-plus'
 
 const weekFirstDay = ref('')
 const changeDate = (e: Date) => {
@@ -52,53 +72,6 @@ const changeDate = (e: Date) => {
   getReminders()
 }
 const modalCreator = ref()
-// const userData = useMainStore().userData
-// const staticData = useMainStore().staticDataDropDown
-
-// const newReminder = reactive<Riminder>({
-//   title: '',
-//   body: '',
-//   dateAction: '',
-//   status: 1,
-//   priorityType: 4,
-//   typeAction: 4,
-//   author: userData.userId,
-//   user: userData.userId
-// })
-//
-// const validateForm = reactive<FormRules<Riminder>>({
-//   title: [
-//     { required: true, message: 'Поле должно быть заполнено', trigger: 'change' },
-//     { min: 1, max: 20, message: 'Длина заколовка должна превышать 20 символов', trigger: 'blur' }
-//   ],
-//   body: [{ required: true, message: 'Поле должно быть заполнено', trigger: 'change' }],
-//   dateAction: [
-//     {
-//       type: 'string',
-//       required: true,
-//       message: 'Выберите дату события',
-//       trigger: 'change'
-//     }
-//   ]
-// })
-// const validateFormRef = ref<FormInstance>()
-// const sendForm = async (formEl: FormInstance | undefined) => {
-//   console.log(formEl)
-//   if (!formEl) return
-//   await formEl.validate(async (valid, fields) => {
-//     // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
-//     // newReminder.dateAction = dayjs(newReminder.dateAction, 'YYYY-MM-DDTHH:mm:ssZ[Z]')
-//     console.log(valid, fields)
-//     if (!valid) return
-//     // newReminder.dateAction = Number(newReminder.dateAction)
-//     const repsonseRaw = await getFetch('http://localhost:3000/reminders/create', newReminder)
-//     // const response = await repsonseRaw.json()
-//     console.log(repsonseRaw)
-//     addReminder(repsonseRaw)
-//     formEl.resetFields()
-//     stateModal.value = false
-//   })
-// }
 
 const week = ref<WeekDateData[]>(getWeek(Date.now()))
 const reminders = ref<Riminder[]>([])
@@ -132,7 +105,8 @@ function addReminder(reminder: Riminder) {
 <style scoped>
 .reminders_add {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+    margin: 0 0 8px 0;
 }
 .table {
   max-height: 85vh;
@@ -148,9 +122,14 @@ function addReminder(reminder: Riminder) {
   /* background: #503ddf2d; */
 }
 .column__header {
-  display: flex;
-  justify-content: center;
-  background: #4f3ddf7a;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4f3ddf7a;
+}
+._text-btn {
+    margin-left: 4px;
 }
 .column:first-child .column__header {
   border-radius: 4px 0 0 0;
@@ -179,5 +158,70 @@ function addReminder(reminder: Riminder) {
 .reminder__card {
   width: 95%;
   height: 14rem;
+}
+
+.card_header {
+    min-height: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+.card_actions {
+    min-width: 20px;
+    min-height: 20px;
+    position: absolute;
+    right: 0;
+    display: flex;
+    background-color: #fff;
+}
+.card_actions-switcher {
+    width: 20px;
+    height: 20px;
+    visibility: visible;
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+.card_actions:hover .card_actions-switcher {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0s ease-out;
+}
+.card_main-actions-wrap {
+    width: 0;
+    height: 0;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+.card_actions:hover .card_main-actions-wrap {
+    width: auto;
+    height: auto;
+    /*display: flex;*/
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    /*transform: translateX(-100%);*/
+}
+.card_main-actions-wrap > div {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.card_main-actions-wrap > div:hover {
+    background-color: rgba(208, 215, 236, 0.4);
+}
+.card_desc {
+    height: 72px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
 }
 </style>
