@@ -6,15 +6,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/:path',
+      path: '/',
       name: 'mainLayout',
       component: MainLayout,
-      redirect: (to) => {
-        return 'mainPage'
-      },
       children: [
         {
-          path: '/main',
+          path: '/',
           name: 'mainPage',
           alias: '/',
           component: () => import('@/pages/MainPage.vue')
@@ -56,13 +53,13 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   if (to.path === '/login') return true
-  const mainStore = useMainStore()
-  console.log('mainStore.getAuthState', mainStore.getAuthState)
-  if (mainStore.getAuthState) return true
+  const $mainStore = useMainStore()
+  console.log('mainStore.getAuthState', to, $mainStore.getAuthState)
+  if ($mainStore.getAuthState) return true
   else if (to.path === '/registration') return true
-  const data = await mainStore.checkAuthState()
+  const data = await $mainStore.checkAuthState()
   const checkState = data.status === 200
-  mainStore.setAuthState(checkState)
+  $mainStore.setAuthState(checkState)
   console.log('before', checkState, to, from)
   if (checkState) {
     return true

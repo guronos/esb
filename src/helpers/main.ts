@@ -7,7 +7,7 @@ export const getFetch = async (
   endpoint: string,
   payload: object | false = false,
   method = 'GET'
-):Promise<any> => {
+): Promise<any> => {
   console.log(endpoint, payload, method)
   // if (payload.filter) {
   //   const query = {}
@@ -34,7 +34,6 @@ export const getFetch = async (
   // if (rawData.status === 401) useMainStore().setAuthState(false)
   console.log(rawData)
   const data = await rawData.json()
-  data['status'] = rawData.status
   console.log(data)
   return data
 }
