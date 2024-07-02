@@ -74,22 +74,13 @@ import { reactive, ref } from 'vue'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 import { getFetch } from '@/helpers/main'
 import { urlBack } from '@/constansDev'
+import { useRouter } from "vue-router";
+import type { I_UserCreate } from './types'
+import {useMainStore} from "@/stores/mainState";
 
-interface I_UserCreate {
-  email: string
-  phone: string
-  password: string
-  passwordRepeat: string
-  firstName: string
-  lastName: string
-  middleName: string
-  birthDate: string
-  sex: string
-  region: string
-  city: string
-  isAcceptedCookies: boolean
-  isAcceptLicense: boolean
-}
+
+const router = useRouter()
+const $mainStore = useMainStore()
 
 const formSize = ref<ComponentSize>('default')
 const userCreateRef = ref<FormInstance>()
@@ -162,7 +153,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       console.log('submit!', userCreate)
-      await getFetch(urlBack + 'users/create', userCreate)
+      const response = await getFetch(urlBack + 'users/create', userCreate)
+      if (response.statusCode === 200) {
+          $mainStore.setUserData(response.data.userId)
+          // await router.push('/')
+      }
     } else {
       console.log('error submit!', fields)
     }

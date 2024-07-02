@@ -1,3 +1,20 @@
+
+export interface I_UserCreate {
+  email: string
+  phone: string
+  password: string
+  passwordRepeat: string
+  firstName: string
+  lastName: string
+  middleName: string
+  birthDate: string
+  sex: string
+  region: string
+  city: string
+  isAcceptedCookies: boolean
+  isAcceptLicense: boolean
+}
+
 export interface RemindersFromDay {
   [key: string]: Array<Riminder>
 }

@@ -58,7 +58,7 @@ router.beforeEach(async (to, from) => {
   if ($mainStore.getAuthState) return true
   else if (to.path === '/registration') return true
   const data = await $mainStore.checkAuthState()
-  const checkState = data.status === 200
+  const checkState = !!data
   $mainStore.setAuthState(checkState)
   console.log('before', checkState, to, from)
   if (checkState) {

@@ -67,10 +67,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid) => {
     if (valid) {
       const data = await getFetch(urlBack + 'auth', dynamicValidateForm)
-      const assess = data.status === 200
+      const assess = data.statusCode === 200
       mainStore.setAuthState(assess)
-      console.log('assess', assess)
-      if (assess) router.push('/main')
+      if (assess) {
+          mainStore.setUserData({userData: data.userId})
+          await router.push('/')
+      }
     } else {
       console.log('error submit!')
     }

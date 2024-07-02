@@ -7,16 +7,21 @@ import type { StaticDataDropDown } from '@/pages/types'
 export const useMainStore = defineStore('mainState', () => {
   const authState = ref(false)
   const getAuthState = computed(() => authState.value)
-  const checkAuthState = async () => {
-    return await getFetch(urlBack + 'auth/check', {})
-  }
   const setAuthState = (state: boolean) => {
     authState.value = state
   }
+  const checkAuthState = async () => {
+    const isAuth = await getFetch(urlBack + 'auth/check', {})
+    if (isAuth.statusCode === 200) {
+      setUserData({userData: isAuth.userId})
+      return isAuth
+    } else return false
+  }
 
-  const userData = ref({
-    userId: 2
-  })
+  const userData = ref({})
+  const setUserData = (userDataObj: {}) => {
+    userData.value = userDataObj
+  }
 
-  return { userData, getAuthState, checkAuthState, setAuthState }
+  return { userData, setUserData, getAuthState, checkAuthState, setAuthState }
 })
