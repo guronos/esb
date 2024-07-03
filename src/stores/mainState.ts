@@ -13,7 +13,7 @@ export const useMainStore = defineStore('mainState', () => {
   const checkAuthState = async () => {
     const isAuth = await getFetch(urlBack + 'auth/check', {})
     if (isAuth.statusCode === 200) {
-      setUserData({userData: isAuth.userId})
+      setUserData({userId: isAuth.userId})
       return isAuth
     } else return false
   }

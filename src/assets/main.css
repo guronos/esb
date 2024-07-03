@@ -1,5 +1,4 @@
 /* @import './base.css'; */
-
 *,
 *::before,
 *::after {
@@ -14,4 +13,13 @@ body {
 }
 .flex {
   display: flex;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }

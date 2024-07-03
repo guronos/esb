@@ -156,7 +156,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       const response = await getFetch(urlBack + 'users/create', userCreate)
       if (response.statusCode === 200) {
           $mainStore.setUserData(response.data.userId)
-          // await router.push('/')
+          await router.push('/')
       }
     } else {
       console.log('error submit!', fields)
