@@ -1,72 +1,74 @@
 <template>
-  <el-form
-    ref="userCreateRef"
-    style="max-width: 600px"
-    :model="userCreate"
-    :rules="rules"
-    label-width="auto"
-    class="demo-UserCreate"
-    :size="formSize"
-    status-icon
-  >
-    <el-form-item label="Имя" prop="firstName">
-      <el-input v-model="userCreate.firstName" />
-    </el-form-item>
-    <el-form-item label="Фамилия" prop="lastName">
-      <el-input v-model="userCreate.lastName" />
-    </el-form-item>
-    <el-form-item label="Отчество" prop="middleName">
-      <el-input v-model="userCreate.middleName" />
-    </el-form-item>
-    <el-form-item label="Email" prop="email">
-      <el-input v-model="userCreate.email" />
-    </el-form-item>
-    <el-form-item label="Телефон" prop="phone">
-      <el-input v-model="userCreate.phone" />
-    </el-form-item>
-    <el-form-item label="Пароль" prop="password">
-      <el-input v-model="userCreate.password" />
-    </el-form-item>
-    <el-form-item label="Повторите пароль" prop="passwordRepeat">
-      <el-input v-model="userCreate.passwordRepeat" />
-    </el-form-item>
-    <el-form-item label="Регион" prop="region">
-      <el-select v-model="userCreate.region" placeholder="Выберите свой регион">
-        <el-option label="Любой регион" value="any" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Город" prop="city">
-      <el-select v-model="userCreate.city" placeholder="Выберите свой город">
-        <el-option label="Любой город" value="any" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Дата рождения" prop="birthDate">
-      <el-date-picker
-        v-model="userCreate.birthDate"
-        type="date"
-        format="DD.MM.YYYY"
-        value-format="YYYY-MM-DD HH:mm:ss"
-        aria-label="Выберите дату"
-        placeholder="Выберите дату"
-      />
-    </el-form-item>
-    <el-form-item label="Пол" prop="sex">
-      <el-radio-group v-model="userCreate.sex">
-        <el-radio value="m">Мужской</el-radio>
-        <el-radio value="f">Женский</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="Согласен на предоставление Cookie" prop="isAcceptedCookies">
-      <el-checkbox v-model="userCreate.isAcceptedCookies" name="isAcceptedCookies"> </el-checkbox>
-    </el-form-item>
-    <el-form-item label="Согласен с условиями лицензии" prop="isAcceptLicense">
-      <el-checkbox v-model="userCreate.isAcceptLicense" name="isAcceptLicense"> </el-checkbox>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(userCreateRef)"> Зарегистрироваться </el-button>
-      <el-button @click="resetForm(userCreateRef)">Сбросить</el-button>
-    </el-form-item>
-  </el-form>
+    <div class="registration">
+        <el-form
+            ref="userCreateRef"
+            style="max-width: 600px"
+            :model="userCreate"
+            :rules="rules"
+            label-width="auto"
+            class="demo-UserCreate form"
+            :size="formSize"
+            status-icon
+        >
+            <el-form-item label="Имя" prop="firstName">
+                <el-input v-model="userCreate.firstName" />
+            </el-form-item>
+            <el-form-item label="Фамилия" prop="lastName">
+                <el-input v-model="userCreate.lastName" />
+            </el-form-item>
+            <el-form-item label="Отчество" prop="middleName">
+                <el-input v-model="userCreate.middleName" />
+            </el-form-item>
+            <el-form-item label="Email" prop="email">
+                <el-input v-model="userCreate.email" />
+            </el-form-item>
+            <el-form-item label="Телефон" prop="phone">
+                <el-input v-model="userCreate.phone" />
+            </el-form-item>
+            <el-form-item label="Пароль" prop="password">
+                <el-input v-model="userCreate.password" />
+            </el-form-item>
+            <el-form-item label="Повторите пароль" prop="passwordRepeat">
+                <el-input v-model="userCreate.passwordRepeat" />
+            </el-form-item>
+            <el-form-item label="Регион" prop="region">
+                <el-select v-model="userCreate.region" placeholder="Выберите свой регион">
+                    <el-option label="Любой регион" value="any" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="Город" prop="city">
+                <el-select v-model="userCreate.city" placeholder="Выберите свой город">
+                    <el-option label="Любой город" value="any" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="Дата рождения" prop="birthDate">
+                <el-date-picker
+                    v-model="userCreate.birthDate"
+                    type="date"
+                    format="DD.MM.YYYY"
+                    value-format="YYYY-MM-DD HH:mm:ss"
+                    aria-label="Выберите дату"
+                    placeholder="Выберите дату"
+                />
+            </el-form-item>
+            <el-form-item label="Пол" prop="sex">
+                <el-radio-group v-model="userCreate.sex">
+                    <el-radio value="m">Мужской</el-radio>
+                    <el-radio value="f">Женский</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="Согласен на предоставление Cookie" prop="isAcceptedCookies">
+                <el-checkbox v-model="userCreate.isAcceptedCookies" name="isAcceptedCookies"> </el-checkbox>
+            </el-form-item>
+            <el-form-item label="Согласен с условиями лицензии" prop="isAcceptLicense">
+                <el-checkbox v-model="userCreate.isAcceptLicense" name="isAcceptLicense"> </el-checkbox>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm(userCreateRef)"> Зарегистрироваться </el-button>
+                <el-button @click="resetForm(userCreateRef)">Сбросить</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -169,4 +171,22 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields()
 }
 </script>
-<style scoped></style>
+<style scoped lang="scss">
+.registration {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-image: url("../assets/image/registrationLogo.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #f8f8f8;
+    .form {
+        padding: 3rem 5rem;
+        color: #f8f8f8;
+        background-color: #1635d5;
+    }
+}
+</style>

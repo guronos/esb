@@ -1,5 +1,6 @@
 <template>
-    <div class="animated-button1">
+    <button v-if="type === 'accept'" class="btn accept">{{text}}</button>
+    <div v-else-if="type === 'attention'" class="animated-button1">
         <span></span>
         <span></span>
         <span></span>
@@ -11,11 +12,12 @@
 import { toRefs } from "vue";
 
 const props = defineProps<{
-    text: string
+    text: string,
+    type: string
 }>()
-const {text} = toRefs(props)
+const {text, type} = toRefs(props)
 </script>
-<style scoped>
+<style scoped lang="scss">
 .animated-button {
     background: linear-gradient(-30deg, #0b1b3d 50%, #08142b 50%);
     padding: 20px 40px;
