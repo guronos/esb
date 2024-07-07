@@ -1,1 +1,41 @@
 $prime-white: #f8f8f8;
+$prime-black: #27292acf;
+
+/*TODO dinamic style*/
+$error: #00fff7;
+:root {
+}
+.label_custom-color {
+    --el-text-color-regular: #f8f8f8;
+    --el-color-danger: #00fff7;
+    .el-input__inner {
+        --el-text-color-regular: $prime-black;
+    }
+}
+.input_color {
+    --el-text-color-regular: $prime-black;
+    --el-input-text-color: $prime-black;
+    color: #27292acf !important;
+    --color: #8b01be;
+}
+.label_custom-colors:only-child:not(.el-form-item__label) {
+    --el-text-color-regular: $prime-black;
+    --el-input-text-color: $prime-black;
+}
+.btn {
+    //--el-button-border-color: #f5df08 !important;
+    --el-button-hover-bg-color: #f5df08 !important;
+    --el-button-hover-text-color: $prime-black !important;
+    --el-button-hover-border-color: rgb(172, 85, 200);
+    --el-button-active-bg-color: rgb(114, 14, 145);
+    --el-button-active-border-color: rgb(114, 14, 145);
+    --el-button-disabled-bg-color: rgb(78, 215, 29);
+    text-decoration: none;
+    border: 1px solid rgb(146, 148, 248);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
+}

@@ -1,9 +1,9 @@
 interface MenuItem {
-  title: string
-  link: string
-  routeName: string
-  key: string
+    title: string
+    link: string
+    routeName: string
+    key: string
 }
 interface Menu {
-  [key: string]: MenuItem
+    [key: string]: MenuItem
 }

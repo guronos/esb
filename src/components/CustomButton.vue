@@ -1,5 +1,5 @@
 <template>
-    <button v-if="type === 'accept'" class="btn accept">{{text}}</button>
+    <button v-if="type === 'accept'" class="btn accept">{{ text }}</button>
     <div v-else-if="type === 'attention'" class="animated-button1">
         <span></span>
         <span></span>
@@ -9,13 +9,13 @@
     </div>
 </template>
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { toRefs } from 'vue'
 
 const props = defineProps<{
-    text: string,
+    text: string
     type: string
 }>()
-const {text, type} = toRefs(props)
+const { text, type } = toRefs(props)
 </script>
 <style scoped lang="scss">
 .animated-button {
@@ -45,8 +45,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #8592ad;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button:hover::before {
@@ -62,7 +62,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(8, 20, 43, 0)), to(#2662d9));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(8, 20, 43, 0)),
+        to(#2662d9)
+    );
     background: linear-gradient(to left, rgba(8, 20, 43, 0), #2662d9);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -95,7 +101,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 20, 43, 0)), to(#2662d9));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(8, 20, 43, 0)),
+        to(#2662d9)
+    );
     background: linear-gradient(to top, rgba(8, 20, 43, 0), #2662d9);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -128,7 +140,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(8, 20, 43, 0)), to(#2662d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(8, 20, 43, 0)),
+        to(#2662d9)
+    );
     background: linear-gradient(to right, rgba(8, 20, 43, 0), #2662d9);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -161,7 +179,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 20, 43, 0)), to(#2662d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(8, 20, 43, 0)),
+        to(#2662d9)
+    );
     background: linear-gradient(to bottom, rgba(8, 20, 43, 0), #2662d9);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -216,8 +240,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #ad8585;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button1:hover::before {
@@ -255,7 +279,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(43, 8, 8, 0)), to(#10e1e8));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(43, 8, 8, 0)),
+        to(#10e1e8)
+    );
     background: linear-gradient(to top, rgba(43, 8, 8, 0), #10e1e8);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -299,7 +329,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 8, 8, 0)), to(#10e1e8));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(43, 8, 8, 0)),
+        to(#10e1e8)
+    );
     background: linear-gradient(to bottom, rgba(43, 8, 8, 0), #10e1e8);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -343,8 +379,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #ad9985;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button2:hover::before {
@@ -360,7 +396,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(43, 26, 8, 0)), to(#d98026));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(43, 26, 8, 0)),
+        to(#d98026)
+    );
     background: linear-gradient(to left, rgba(43, 26, 8, 0), #d98026);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -382,7 +424,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(43, 26, 8, 0)), to(#d98026));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(43, 26, 8, 0)),
+        to(#d98026)
+    );
     background: linear-gradient(to top, rgba(43, 26, 8, 0), #d98026);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -404,7 +452,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(43, 26, 8, 0)), to(#d98026));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(43, 26, 8, 0)),
+        to(#d98026)
+    );
     background: linear-gradient(to right, rgba(43, 26, 8, 0), #d98026);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -426,7 +480,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 26, 8, 0)), to(#d98026));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(43, 26, 8, 0)),
+        to(#d98026)
+    );
     background: linear-gradient(to bottom, rgba(43, 26, 8, 0), #d98026);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -470,8 +530,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #adad85;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button3:hover::before {
@@ -487,7 +547,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(43, 43, 8, 0)), to(#d9d926));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(43, 43, 8, 0)),
+        to(#d9d926)
+    );
     background: linear-gradient(to left, rgba(43, 43, 8, 0), #d9d926);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -509,7 +575,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(43, 43, 8, 0)), to(#d9d926));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(43, 43, 8, 0)),
+        to(#d9d926)
+    );
     background: linear-gradient(to top, rgba(43, 43, 8, 0), #d9d926);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -531,7 +603,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(43, 43, 8, 0)), to(#d9d926));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(43, 43, 8, 0)),
+        to(#d9d926)
+    );
     background: linear-gradient(to right, rgba(43, 43, 8, 0), #d9d926);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -553,7 +631,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 43, 8, 0)), to(#d9d926));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(43, 43, 8, 0)),
+        to(#d9d926)
+    );
     background: linear-gradient(to bottom, rgba(43, 43, 8, 0), #d9d926);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -597,8 +681,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #99ad85;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button4:hover::before {
@@ -614,7 +698,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(26, 43, 8, 0)), to(#80d926));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(26, 43, 8, 0)),
+        to(#80d926)
+    );
     background: linear-gradient(to left, rgba(26, 43, 8, 0), #80d926);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -636,7 +726,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(26, 43, 8, 0)), to(#80d926));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(26, 43, 8, 0)),
+        to(#80d926)
+    );
     background: linear-gradient(to top, rgba(26, 43, 8, 0), #80d926);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -658,7 +754,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(26, 43, 8, 0)), to(#80d926));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(26, 43, 8, 0)),
+        to(#80d926)
+    );
     background: linear-gradient(to right, rgba(26, 43, 8, 0), #80d926);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -680,7 +782,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(26, 43, 8, 0)), to(#80d926));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(26, 43, 8, 0)),
+        to(#80d926)
+    );
     background: linear-gradient(to bottom, rgba(26, 43, 8, 0), #80d926);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -724,8 +832,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #85ad85;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button5:hover::before {
@@ -763,7 +871,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 43, 8, 0)), to(#26d926));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(8, 43, 8, 0)),
+        to(#26d926)
+    );
     background: linear-gradient(to top, rgba(8, 43, 8, 0), #26d926);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -807,7 +921,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 43, 8, 0)), to(#26d926));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(8, 43, 8, 0)),
+        to(#26d926)
+    );
     background: linear-gradient(to bottom, rgba(8, 43, 8, 0), #26d926);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -851,8 +971,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #85ad99;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button6:hover::before {
@@ -868,7 +988,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(8, 43, 26, 0)), to(#26d980));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(8, 43, 26, 0)),
+        to(#26d980)
+    );
     background: linear-gradient(to left, rgba(8, 43, 26, 0), #26d980);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -890,7 +1016,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 43, 26, 0)), to(#26d980));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(8, 43, 26, 0)),
+        to(#26d980)
+    );
     background: linear-gradient(to top, rgba(8, 43, 26, 0), #26d980);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -912,7 +1044,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(8, 43, 26, 0)), to(#26d980));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(8, 43, 26, 0)),
+        to(#26d980)
+    );
     background: linear-gradient(to right, rgba(8, 43, 26, 0), #26d980);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -934,7 +1072,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 43, 26, 0)), to(#26d980));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(8, 43, 26, 0)),
+        to(#26d980)
+    );
     background: linear-gradient(to bottom, rgba(8, 43, 26, 0), #26d980);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -978,8 +1122,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #85adad;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button7:hover::before {
@@ -995,7 +1139,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(8, 43, 43, 0)), to(#26d9d9));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(8, 43, 43, 0)),
+        to(#26d9d9)
+    );
     background: linear-gradient(to left, rgba(8, 43, 43, 0), #26d9d9);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -1017,7 +1167,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 43, 43, 0)), to(#26d9d9));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(8, 43, 43, 0)),
+        to(#26d9d9)
+    );
     background: linear-gradient(to top, rgba(8, 43, 43, 0), #26d9d9);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -1039,7 +1195,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(8, 43, 43, 0)), to(#26d9d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(8, 43, 43, 0)),
+        to(#26d9d9)
+    );
     background: linear-gradient(to right, rgba(8, 43, 43, 0), #26d9d9);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -1061,7 +1223,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 43, 43, 0)), to(#26d9d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(8, 43, 43, 0)),
+        to(#26d9d9)
+    );
     background: linear-gradient(to bottom, rgba(8, 43, 43, 0), #26d9d9);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -1105,8 +1273,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #8599ad;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button8:hover::before {
@@ -1122,7 +1290,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(8, 26, 43, 0)), to(#2680d9));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(8, 26, 43, 0)),
+        to(#2680d9)
+    );
     background: linear-gradient(to left, rgba(8, 26, 43, 0), #2680d9);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -1144,7 +1318,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 26, 43, 0)), to(#2680d9));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(8, 26, 43, 0)),
+        to(#2680d9)
+    );
     background: linear-gradient(to top, rgba(8, 26, 43, 0), #2680d9);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -1166,7 +1346,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(8, 26, 43, 0)), to(#2680d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(8, 26, 43, 0)),
+        to(#2680d9)
+    );
     background: linear-gradient(to right, rgba(8, 26, 43, 0), #2680d9);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -1188,7 +1374,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 26, 43, 0)), to(#2680d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(8, 26, 43, 0)),
+        to(#2680d9)
+    );
     background: linear-gradient(to bottom, rgba(8, 26, 43, 0), #2680d9);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -1232,8 +1424,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #8585ad;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button9:hover::before {
@@ -1271,7 +1463,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 8, 43, 0)), to(#2626d9));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(8, 8, 43, 0)),
+        to(#2626d9)
+    );
     background: linear-gradient(to top, rgba(8, 8, 43, 0), #2626d9);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -1315,7 +1513,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 8, 43, 0)), to(#2626d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(8, 8, 43, 0)),
+        to(#2626d9)
+    );
     background: linear-gradient(to bottom, rgba(8, 8, 43, 0), #2626d9);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -1359,8 +1563,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #9985ad;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button10:hover::before {
@@ -1376,7 +1580,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(26, 8, 43, 0)), to(#8026d9));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(26, 8, 43, 0)),
+        to(#8026d9)
+    );
     background: linear-gradient(to left, rgba(26, 8, 43, 0), #8026d9);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -1398,7 +1608,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(26, 8, 43, 0)), to(#8026d9));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(26, 8, 43, 0)),
+        to(#8026d9)
+    );
     background: linear-gradient(to top, rgba(26, 8, 43, 0), #8026d9);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -1420,7 +1636,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(26, 8, 43, 0)), to(#8026d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(26, 8, 43, 0)),
+        to(#8026d9)
+    );
     background: linear-gradient(to right, rgba(26, 8, 43, 0), #8026d9);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -1442,7 +1664,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(26, 8, 43, 0)), to(#8026d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(26, 8, 43, 0)),
+        to(#8026d9)
+    );
     background: linear-gradient(to bottom, rgba(26, 8, 43, 0), #8026d9);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -1486,8 +1714,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #ad85ad;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button11:hover::before {
@@ -1503,7 +1731,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(43, 8, 43, 0)), to(#d926d9));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(43, 8, 43, 0)),
+        to(#d926d9)
+    );
     background: linear-gradient(to left, rgba(43, 8, 43, 0), #d926d9);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -1525,7 +1759,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(43, 8, 43, 0)), to(#d926d9));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(43, 8, 43, 0)),
+        to(#d926d9)
+    );
     background: linear-gradient(to top, rgba(43, 8, 43, 0), #d926d9);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -1547,7 +1787,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(43, 8, 43, 0)), to(#d926d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(43, 8, 43, 0)),
+        to(#d926d9)
+    );
     background: linear-gradient(to right, rgba(43, 8, 43, 0), #d926d9);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -1569,7 +1815,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 8, 43, 0)), to(#d926d9));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(43, 8, 43, 0)),
+        to(#d926d9)
+    );
     background: linear-gradient(to bottom, rgba(43, 8, 43, 0), #d926d9);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;
@@ -1613,8 +1865,8 @@ const {text, type} = toRefs(props)
     height: 100%;
     background-color: #ad8599;
     opacity: 0;
-    -webkit-transition: .2s opacity ease-in-out;
-    transition: .2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+    transition: 0.2s opacity ease-in-out;
 }
 
 .animated-button12:hover::before {
@@ -1630,7 +1882,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, right top, left top, from(rgba(43, 8, 26, 0)), to(#d92680));
+    background: -webkit-gradient(
+        linear,
+        right top,
+        left top,
+        from(rgba(43, 8, 26, 0)),
+        to(#d92680)
+    );
     background: linear-gradient(to left, rgba(43, 8, 26, 0), #d92680);
     -webkit-animation: 2s animateTop linear infinite;
     animation: 2s animateTop linear infinite;
@@ -1652,7 +1910,13 @@ const {text, type} = toRefs(props)
     right: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(43, 8, 26, 0)), to(#d92680));
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        from(rgba(43, 8, 26, 0)),
+        to(#d92680)
+    );
     background: linear-gradient(to top, rgba(43, 8, 26, 0), #d92680);
     -webkit-animation: 2s animateRight linear -1s infinite;
     animation: 2s animateRight linear -1s infinite;
@@ -1674,7 +1938,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     width: 100%;
     height: 2px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(43, 8, 26, 0)), to(#d92680));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(43, 8, 26, 0)),
+        to(#d92680)
+    );
     background: linear-gradient(to right, rgba(43, 8, 26, 0), #d92680);
     -webkit-animation: 2s animateBottom linear infinite;
     animation: 2s animateBottom linear infinite;
@@ -1696,7 +1966,13 @@ const {text, type} = toRefs(props)
     left: 0px;
     height: 100%;
     width: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 8, 26, 0)), to(#d92680));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(43, 8, 26, 0)),
+        to(#d92680)
+    );
     background: linear-gradient(to bottom, rgba(43, 8, 26, 0), #d92680);
     -webkit-animation: 2s animateLeft linear -1s infinite;
     animation: 2s animateLeft linear -1s infinite;

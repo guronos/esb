@@ -8,19 +8,19 @@ const formatTimestamp = formatWithOptions({ locale: ru }, 'EEEE, d MMMM yyyy')
 const formatWeek: { weekStartsOn: Day } = { weekStartsOn: 1 }
 
 export const getWeek = (choiseTime: ms_timestamp): Array<WeekDateData> => {
-  const firstDay = startOfWeek(choiseTime, formatWeek)
-  const lastDay = endOfWeek(choiseTime, formatWeek)
-  return eachDayOfInterval({
-    start: firstDay,
-    end: lastDay
-  }).map((i) => {
-    return {
-      humanDate: formatByHuman(i),
-      timestamp: format(i, 'T')
-    }
-  })
+    const firstDay = startOfWeek(choiseTime, formatWeek)
+    const lastDay = endOfWeek(choiseTime, formatWeek)
+    return eachDayOfInterval({
+        start: firstDay,
+        end: lastDay
+    }).map((i) => {
+        return {
+            humanDate: formatByHuman(i),
+            timestamp: format(i, 'T')
+        }
+    })
 }
 
 export const getStartDay = (dateTame) => {
-  return format(startOfDay(dateTame), 'T')
+    return format(startOfDay(dateTame), 'T')
 }

@@ -1,4 +1,4 @@
 <template>
-  <div>Записи</div>
+    <div>Записи</div>
 </template>
 <script setup lang="ts"></script>
