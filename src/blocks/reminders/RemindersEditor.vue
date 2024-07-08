@@ -50,20 +50,13 @@ import { E_Priority_Reminders, E_Types_Actions, E_Status_Reminders } from '@/pag
 import { useMainStore } from '@/stores/mainState'
 import type { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
+import { dayjs } from 'element-plus'
 
 const emit = defineEmits<{
     addingReminder: [addingReminder: Reminder]
 }>()
 const $storeMain = useMainStore()
 const userData = $storeMain.userData
-// const stateModal = ref<boolean>(false)
-// const openModal = () => {
-//   stateModal.value = true
-// }
-// const closeModal = (formEl: FormInstance | undefined) => {
-//   if (formEl) formEl.resetFields()
-//   stateModal.value = false
-// }
 const reminder = reactive<Reminder>({
     title: '',
     body: '',
@@ -81,11 +74,10 @@ const validateForm = reactive<FormRules<Reminder>>({
         {
             min: 1,
             max: 20,
-            message: 'Длина заколовка должна превышать 20 символов',
+            message: 'Длина заголовка не должна превышать 20 символов',
             trigger: 'blur'
         }
     ],
-    body: [{ required: true, message: 'Поле должно быть заполнено', trigger: 'change' }],
     dateAction: [
         {
             type: 'string',
@@ -103,7 +95,15 @@ const sendForm = async (formEl: FormInstance | undefined) => {
     if (!validateFormRef.value) return
     await validateFormRef.value.validate(async (valid, fields) => {
         if (!valid) return
-        const responseRaw = await getFetch('/api/v1/reminders/create', reminder)
+        const routeData = {
+            route: '/api/v1/reminders/create',
+            method: 'POST'
+        }
+        if (reminder.id) {
+            routeData.route = '/api/v1/reminders/update'
+            routeData.method = 'PATCH'
+        }
+        const responseRaw = await getFetch(routeData.route, reminder, routeData.method)
         if (responseRaw.statusCode === 200) {
             emit('addingReminder', responseRaw.data)
             formReset()
@@ -112,10 +112,17 @@ const sendForm = async (formEl: FormInstance | undefined) => {
     })
 }
 
+// Редактирование
+const setStateEdit = (data: Reminder) => {
+    data.dateAction = dayjs(data.dateAction).format('X')
+    Object.assign(reminder, data)
+}
+
 defineExpose({
     // openModal,
     // closeModal,
     sendForm,
-    formReset
+    formReset,
+    setStateEdit
 })
 </script>

@@ -41,7 +41,7 @@
                                                 <div class="card_done">
                                                     <el-icon><Select /></el-icon>
                                                 </div>
-                                                <div class="card_edit">
+                                                <div class="card_edit" @click='openEditModal(entryReminder)'>
                                                     <el-icon><EditPen /></el-icon>
                                                 </div>
                                                 <div class="card_delete">
@@ -104,7 +104,7 @@
 import RemindersEditor from '@/blocks/reminders/RemindersEditor.vue'
 import { getWeek, getStartDay } from '@/helpers/calendar'
 import { error, getFetch, success } from '@/helpers/main'
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import type { RemindersFromDay, WeekDateData, ms_timestamp, Reminder } from './types'
 import { ElMessage } from 'element-plus'
 import { E_Priority_Reminders } from './types'
@@ -157,6 +157,13 @@ const openModal = () => {
 const closeModal = () => {
     if (modalCreator.value) modalCreator.value.formReset()
     stateModal.value = false
+}
+
+const openEditModal = (data: Reminder) => {
+    stateModal.value = true
+    nextTick (() => {
+        modalCreator.value.setStateEdit(data)
+    })
 }
 
 const removeReminder = async (reminderId: string, key: string) => {
