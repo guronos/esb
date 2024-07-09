@@ -44,20 +44,22 @@
     </el-form>
 </template>
 <script setup lang="ts">
-import { getFetch, success } from '@/helpers/main'
-import type { Reminder } from '@/pages/types'
+import { error, getFetch, success } from '@/helpers/main'
+import type { EmitEditingReminderData, Reminder, ReminderEdit } from '@/pages/types'
 import { E_Priority_Reminders, E_Types_Actions, E_Status_Reminders } from '@/pages/types'
 import { useMainStore } from '@/stores/mainState'
 import type { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref, toValue } from 'vue'
 import { dayjs } from 'element-plus'
+import _ from 'lodash'
 
 const emit = defineEmits<{
-    addingReminder: [addingReminder: Reminder]
+    addingReminder: [addingReminder: Reminder],
+    editingReminder: [editingReminder: EmitEditingReminderData]
 }>()
 const $storeMain = useMainStore()
 const userData = $storeMain.userData
-const reminder = reactive<Reminder>({
+const reminder = reactive<Reminder | ReminderEdit>({
     title: '',
     body: '',
     dateAction: '',
@@ -65,7 +67,7 @@ const reminder = reactive<Reminder>({
     priorityType: 'low' as E_Priority_Reminders,
     typeAction: 'other' as E_Types_Actions,
     author: userData.userId as number,
-    user: userData.userId as number
+    userId: userData.userId as number
 })
 
 const validateForm = reactive<FormRules<Reminder>>({
@@ -102,27 +104,49 @@ const sendForm = async (formEl: FormInstance | undefined) => {
         if (reminder.id) {
             routeData.route = '/api/v1/reminders/update'
             routeData.method = 'PATCH'
+            for (const key in reminder) {
+                if (key !== 'id' && reminder[key as keyof ReminderEdit] === reminderCloneBegin[key as keyof ReminderEdit]) delete reminder[key  as keyof Reminder]
+            }
         }
         const responseRaw = await getFetch(routeData.route, reminder, routeData.method)
         if (responseRaw.statusCode === 200) {
-            emit('addingReminder', responseRaw.data)
+            if (reminder.id) {
+                emit('editingReminder', { reminderData: responseRaw.data, lastKey: timestampKey.value })
+                success('Напоминание отредактировано')
+            } else {
+                emit('addingReminder', responseRaw.data)
+                success('Напоминание добавлено')
+            }
             formReset()
-            success('Напоминание добавлено')
-        }
+        } else error('Ошибка создания/редактирования записи')
     })
 }
+const reminderCloneBegin: ReminderEdit = reactive({
+    id: ''
+})
+const timestampKey = ref<string>('')
 
 // Редактирование
-const setStateEdit = (data: Reminder) => {
+const setStateEdit = (data: Reminder, remindersKey: string):void => {
     data.dateAction = dayjs(data.dateAction).format('X')
     Object.assign(reminder, data)
+    Object.assign(reminderCloneBegin, data)
+    timestampKey.value = remindersKey
 }
 
+const disableCreateBtn = computed(():boolean => {
+    if (reminder.id) {
+        return _.isEqual(toValue(reminder), toValue(reminderCloneBegin))
+    } else {
+        return !reminder.body || !reminder.dateAction;
+
+    }
+})
+
 defineExpose({
-    // openModal,
-    // closeModal,
     sendForm,
     formReset,
-    setStateEdit
+    setStateEdit,
+    disableCreateBtn
 })
 </script>

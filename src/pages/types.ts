@@ -48,9 +48,16 @@ export interface Reminder {
     status: E_Status_Reminders
     dateAction: number | string
     author: number
-    user: number
+    userId: number
     priorityType: E_Priority_Reminders
     typeAction: E_Types_Actions
+}
+export interface ReminderEdit extends Partial<Reminder> {
+    id: string
+}
+export interface EmitEditingReminderData {
+    reminderData: Reminder,
+    lastKey: string
 }
 export interface WeekDateData {
     humanDate: string

@@ -54,13 +54,11 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
     if (to.path === '/login') return true
     const $mainStore = useMainStore()
-    console.log('mainStore.getAuthState', to, $mainStore.getAuthState)
     if ($mainStore.getAuthState) return true
     else if (to.path === '/registration') return true
     const data = await $mainStore.checkAuthState()
     const checkState = !!data
     $mainStore.setAuthState(checkState)
-    console.log('before', checkState, to, from)
     if (checkState) {
         return true
     } else {

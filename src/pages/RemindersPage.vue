@@ -33,7 +33,7 @@
                                         <div>{{ entryReminder.title }}</div>
                                         <div class="card_actions">
                                             <div class="card_actions-switcher">
-                                                <div class="card_arrays-wrapper">
+                                                <div v-if="entryReminder.status !== E_Status_Reminders.done" class="card_arrays-wrapper">
                                                     <el-icon><DArrowLeft /></el-icon>
                                                 </div>
                                             </div>
@@ -41,7 +41,7 @@
                                                 <div class="card_done">
                                                     <el-icon><Select /></el-icon>
                                                 </div>
-                                                <div class="card_edit" @click='openEditModal(entryReminder)'>
+                                                <div class="card_edit" @click='openEditModal(entryReminder, day.timestamp)'>
                                                     <el-icon><EditPen /></el-icon>
                                                 </div>
                                                 <div class="card_delete">
@@ -89,11 +89,15 @@
         <div v-else>Записи на выбранное время отсутствуют</div>
     </div>
     <el-dialog v-model="stateModal" destroy-on-close title="Создание напоминания">
-        <RemindersEditor ref="modalCreator" @adding-reminder="addReminder" />
+        <RemindersEditor
+            ref="modalCreator"
+            @adding-reminder="addReminder"
+            @editing-reminder='editReminder'
+        />
         <template #footer>
-            <div class="dialog-footer">
+            <div v-if='modalCreator' class="dialog-footer">
                 <el-button @click="closeModal()">Отменить</el-button>
-                <el-button type="primary" @click="modalCreator.sendForm(modalCreator)">
+                <el-button :disabled='modalCreator.disableCreateBtn' type="primary" @click="modalCreator.sendForm(modalCreator)">
                     Создать
                 </el-button>
             </div>
@@ -105,9 +109,9 @@ import RemindersEditor from '@/blocks/reminders/RemindersEditor.vue'
 import { getWeek, getStartDay } from '@/helpers/calendar'
 import { error, getFetch, success } from '@/helpers/main'
 import { ref, nextTick } from 'vue'
-import type { RemindersFromDay, WeekDateData, ms_timestamp, Reminder } from './types'
+import type { RemindersFromDay, WeekDateData, ms_timestamp, Reminder, EmitEditingReminderData } from './types'
 import { ElMessage } from 'element-plus'
-import { E_Priority_Reminders } from './types'
+import { E_Priority_Reminders, E_Status_Reminders } from './types'
 import { Plus } from '@element-plus/icons-vue'
 
 const weekFirstDay = ref<ms_timestamp>(Date.now())
@@ -116,7 +120,6 @@ const changeDate = (e: ms_timestamp) => {
     getReminders()
 }
 const modalCreator = ref()
-console.log(import.meta.env)
 const week = ref<Array<WeekDateData>>(getWeek(Date.now()))
 const reminders = ref<RemindersFromDay>({})
 const getReminders = async () => {
@@ -142,11 +145,19 @@ const getReminders = async () => {
 }
 getReminders()
 
-function addReminder(reminder: Reminder) {
+function addReminder(reminder: Reminder):void {
     const timestamp = getStartDay(reminder.dateAction)
     if (!Object.prototype.hasOwnProperty.call(reminders.value, timestamp))
         reminders.value[timestamp] = []
     reminders.value[timestamp].push(reminder)
+    stateModal.value = false
+}
+function editReminder(reminderDataAndKey: EmitEditingReminderData):void {
+    const {lastKey, reminderData} = reminderDataAndKey
+    reminders.value[lastKey].some((i, idx) => {
+        if (i.id === reminderData.id) return reminders.value[lastKey].splice(idx, 1)
+    })
+    addReminder(reminderData)
     stateModal.value = false
 }
 
@@ -159,10 +170,10 @@ const closeModal = () => {
     stateModal.value = false
 }
 
-const openEditModal = (data: Reminder) => {
+const openEditModal = (data: Reminder, remindersKey: string) => {
     stateModal.value = true
     nextTick (() => {
-        modalCreator.value.setStateEdit(data)
+        modalCreator.value.setStateEdit(data, remindersKey)
     })
 }
 

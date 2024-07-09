@@ -38,6 +38,7 @@ import { useRoute } from 'vue-router'
 import { Menu as IconMenu } from '@element-plus/icons-vue'
 
 const isCollapse = ref<boolean>(false)
+// функции меню
 const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }
