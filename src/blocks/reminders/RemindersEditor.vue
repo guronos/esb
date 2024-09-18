@@ -35,9 +35,9 @@
         <el-form-item label="Выберите дату события" prop="dateAction">
             <el-date-picker
                 v-model="reminder.dateAction"
-                type="date"
+                type="datetime"
                 placeholder="Выбрать дату"
-                format="hh:mm:ss DD.MM.YY"
+                format="HH:mm:ss DD.MM.YY"
                 value-format="X"
             />
         </el-form-item>
@@ -54,7 +54,7 @@ import { dayjs } from 'element-plus'
 import _ from 'lodash'
 
 const emit = defineEmits<{
-    addingReminder: [addingReminder: Reminder],
+    addingReminder: [addingReminder: Reminder]
     editingReminder: [editingReminder: EmitEditingReminderData]
 }>()
 const $storeMain = useMainStore()
@@ -105,13 +105,21 @@ const sendForm = async (formEl: FormInstance | undefined) => {
             routeData.route = '/api/v1/reminders/update'
             routeData.method = 'PATCH'
             for (const key in reminder) {
-                if (key !== 'id' && reminder[key as keyof ReminderEdit] === reminderCloneBegin[key as keyof ReminderEdit]) delete reminder[key  as keyof Reminder]
+                if (
+                    key !== 'id' &&
+                    reminder[key as keyof ReminderEdit] ===
+                        reminderCloneBegin[key as keyof ReminderEdit]
+                )
+                    delete reminder[key as keyof Reminder]
             }
         }
         const responseRaw = await getFetch(routeData.route, reminder, routeData.method)
         if (responseRaw.statusCode === 200) {
             if (reminder.id) {
-                emit('editingReminder', { reminderData: responseRaw.data, lastKey: timestampKey.value })
+                emit('editingReminder', {
+                    reminderData: responseRaw.data,
+                    lastKey: timestampKey.value
+                })
                 success('Напоминание отредактировано')
             } else {
                 emit('addingReminder', responseRaw.data)
@@ -127,19 +135,18 @@ const reminderCloneBegin: ReminderEdit = reactive({
 const timestampKey = ref<string>('')
 
 // Редактирование
-const setStateEdit = (data: Reminder, remindersKey: string):void => {
+const setStateEdit = (data: Reminder, remindersKey: string): void => {
     data.dateAction = dayjs(data.dateAction).format('X')
     Object.assign(reminder, data)
     Object.assign(reminderCloneBegin, data)
     timestampKey.value = remindersKey
 }
 
-const disableCreateBtn = computed(():boolean => {
+const disableCreateBtn = computed((): boolean => {
     if (reminder.id) {
         return _.isEqual(toValue(reminder), toValue(reminderCloneBegin))
     } else {
-        return !reminder.body || !reminder.dateAction;
-
+        return !reminder.body || !reminder.dateAction
     }
 })
 
