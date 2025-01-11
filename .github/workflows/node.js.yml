@@ -23,13 +23,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ftp.es-book.ru
         username: esbookru
         password: ${{ secrets.ftp_password }}
-        local-dir: public/
-        server-dir: /home/esbookru/public_html/
-    - run: npm ci
-    - run: npm run build --if-present
+        local-dir: dist/
+        server-dir: /domains/es-book.ru/public_html/
