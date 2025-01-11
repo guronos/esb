@@ -9,35 +9,25 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
-    web-deploy:
-      name: 🎉 Deploy
-      runs-on: ubuntu-latest
-      permissions:
-        contents: none
-      strategy:
-        matrix:
-          node-version: [ 18.x ]
-      steps:
-        - uses: actions/checkout@v4
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v4
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: 'npm'
-
-        - name: npm install, build
-          run: |
-            npm install
-            npm run build --if-present
-        - name: 📂 Sync files
-          uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-          with:
-            server: 95.164.90.35
-            username: esbookru
-            password: ${{ secrets.ftp_password }}
-            local-dir: dist/
-            server-dir: /home/esbookru/public_html/
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftp.samkirkland.com
+        username: myFtpUserName
+        password: ${{ secrets.ftp_password }}
+    - run: npm ci
+    - run: npm run build --if-present
