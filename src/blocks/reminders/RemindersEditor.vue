@@ -82,7 +82,6 @@ const validateForm = reactive<FormRules<Reminder>>({
     ],
     dateAction: [
         {
-            type: 'string',
             required: true,
             message: 'Выберите дату события',
             trigger: 'change'
