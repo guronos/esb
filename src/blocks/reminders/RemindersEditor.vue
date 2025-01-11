@@ -136,7 +136,7 @@ const timestampKey = ref<string>('')
 
 // Редактирование
 const setStateEdit = (data: Reminder, remindersKey: string): void => {
-    data.dateAction = dayjs(data.dateAction).format('X')
+    data.dateAction = dayjs(data.dateAction).unix()
     Object.assign(reminder, data)
     Object.assign(reminderCloneBegin, data)
     timestampKey.value = remindersKey

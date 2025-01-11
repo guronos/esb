@@ -32,9 +32,9 @@
                                 shadow="hover"
                                 :class="{
                                     'overdue-color':
-                                        entryReminder.status !== 'done' &&
+                                        entryReminder.status !== E_Status_Reminders.done &&
                                         currentTime > getTimestamp(entryReminder.dateAction),
-                                    'done-color': entryReminder.status === 'done'
+                                    'done-color': entryReminder.status === E_Status_Reminders.done
                                 }"
                             >
                                 <template #header>
@@ -43,7 +43,10 @@
                                         <div class="card_actions">
                                             <div class="card_actions-switcher">
                                                 <div
-                                                    v-if="entryReminder.status !== 'done'"
+                                                    v-if="
+                                                        entryReminder.status !==
+                                                        E_Status_Reminders.done
+                                                    "
                                                     class="card_arrays-wrapper"
                                                 >
                                                     <el-icon><DArrowLeft /></el-icon>
@@ -296,7 +299,7 @@ const removeReminder = async (reminderId: string, key: string) => {
     position: absolute;
     right: 0;
     display: flex;
-    background-color: #fff;
+    background-color: #ffffff00;
 }
 .card_actions-switcher {
     width: 20px;
