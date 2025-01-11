@@ -26,10 +26,10 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.yourdomain.com
+        server: ftp.es-book.ru
         username: esbookru
         password: ${{ secrets.ftp_password }}
-#        local-dir: public/
-#        server-dir: /home/esbookru/public_html/
+        local-dir: public/
+        server-dir: /home/esbookru/public_html/
     - run: npm ci
     - run: npm run build --if-present
