@@ -29,7 +29,7 @@ jobs:
         server: ftp.yourdomain.com
         username: esbookru
         password: ${{ secrets.ftp_password }}
-        local-dir: public/
-        server-dir: /home/esbookru/public_html/
+#        local-dir: public/
+#        server-dir: /home/esbookru/public_html/
     - run: npm ci
     - run: npm run build --if-present
