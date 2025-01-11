@@ -21,6 +21,6 @@ export const getWeek = (choiseTime: ms_timestamp): Array<WeekDateData> => {
     })
 }
 
-export const getStartDay = (dateTame) => {
+export const getStartDay = (dateTame: number | string) => {
     return format(startOfDay(dateTame), 'T')
 }
