@@ -40,20 +40,24 @@
                                 <template #header>
                                     <div class="card_header">
                                         <div>{{ entryReminder.title }}</div>
-                                        <div class="card_actions">
+                                        <div
+                                            v-if="
+                                               entryReminder.status !==
+                                               E_Status_Reminders.done
+                                            "
+                                             class="card_actions">
                                             <div class="card_actions-switcher">
                                                 <div
-                                                    v-if="
-                                                        entryReminder.status !==
-                                                        E_Status_Reminders.done
-                                                    "
                                                     class="card_arrays-wrapper"
                                                 >
                                                     <el-icon><DArrowLeft /></el-icon>
                                                 </div>
                                             </div>
                                             <div class="card_main-actions-wrap">
-                                                <div class="card_done">
+                                                <div
+                                                    class="card_done"
+                                                    @click="doneReminder(entryReminder)"
+                                                >
                                                     <el-icon>
                                                         <Select />
                                                     </el-icon>
@@ -90,14 +94,14 @@
                                     <div class="card__footer">
                                         <div class="footer_row">
                                             <span>Приоритет:</span>
-                                            <el-tag size="small">{{
-                                                entryReminder.priorityType
+                                            <el-tag size="small" :type="priorityColor[entryReminder.priorityType]">{{
+                                                Priority_Reminders[entryReminder.priorityType]
                                             }}</el-tag>
                                         </div>
                                         <div class="footer_row">
                                             <span>Тип:</span>
                                             <el-tag size="small" type="info">{{
-                                                entryReminder.typeAction
+                                                Types_Actions[entryReminder.typeAction]
                                             }}</el-tag>
                                         </div>
                                     </div>
@@ -124,7 +128,7 @@
                     type="primary"
                     @click="modalCreator.sendForm(modalCreator)"
                 >
-                    Создать
+                    Сохранить
                 </el-button>
             </div>
         </template>
@@ -143,7 +147,7 @@ import type {
     EmitEditingReminderData
 } from './types'
 import { ElMessage } from 'element-plus'
-import { E_Priority_Reminders, E_Status_Reminders } from './types'
+import { E_Priority_Reminders, E_Status_Reminders, Priority_Reminders, Types_Actions } from '@/enums/enums'
 import { Plus } from '@element-plus/icons-vue'
 import { dayjs } from 'element-plus'
 import { format } from 'date-fns'
@@ -161,7 +165,7 @@ const week = ref<Array<WeekDateData>>(getWeek(Date.now()))
 const reminders = ref<RemindersFromDay>({})
 const getReminders = async () => {
     if (!week.value.length) return
-    reminders.value = await getFetch('/api/v1//reminders/list', {
+    reminders.value = await getFetch('/api/v1/reminders/list', {
         filter: {
             dateStart: +week.value[0].timestamp / 1000,
             dateEnd: +week.value.at(-1).timestamp / 1000
@@ -181,7 +185,11 @@ const getReminders = async () => {
         .catch()
 }
 getReminders()
-
+const doneReminder = (currentReminder: Reminder) => {
+    getFetch(`/api/v1/reminders/done/${currentReminder.id}`, false, 'PATCH').then(response => {
+        if (response.statusCode === 200) currentReminder.status = response.data.status
+    })
+}
 function addReminder(reminder: Reminder): void {
     const timestamp = getStartDay(reminder.dateAction)
     if (!Object.prototype.hasOwnProperty.call(reminders.value, timestamp))
@@ -198,6 +206,12 @@ function editReminder(reminderDataAndKey: EmitEditingReminderData): void {
     stateModal.value = false
 }
 
+const priorityColor = [
+    'danger',
+    'warning',
+    'primary',
+    'info',
+]
 const stateModal = ref<boolean>(false)
 const openModal = () => {
     stateModal.value = true
@@ -364,6 +378,6 @@ const removeReminder = async (reminderId: string, key: string) => {
     background-color: rgb(236, 83, 83);
 }
 .done-color {
-    background-color: #29d432;
+    background-color: #29d432 !important;
 }
 </style>

@@ -10,11 +10,16 @@ export const useMainStore = defineStore('mainState', () => {
         authState.value = state
     }
     const checkAuthState = async () => {
-        const isAuth = await getFetch('/api/v1/auth/check', {})
-        if (isAuth.statusCode === 200) {
-            setUserData({ userId: isAuth.userId })
-            return isAuth
-        } else return false
+        try {
+            const isAuth = await getFetch('/api/v1/auth/check', {})
+            if (isAuth.statusCode === 200) {
+                setUserData({ userId: isAuth.userId })
+                return isAuth
+            } else return false
+        } catch (error) {
+            console.error(error)
+            return false
+        }
     }
 
     const userData = ref<I_UserData>({})

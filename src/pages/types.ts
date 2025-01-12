@@ -1,3 +1,5 @@
+import { E_Priority_Reminders, E_Status_Reminders, E_Types_Actions } from '@/enums/enums'
+
 export interface I_UserLogin {
     email: string
     password: string
@@ -62,26 +64,6 @@ export interface EmitEditingReminderData {
 export interface WeekDateData {
     humanDate: string
     timestamp: string
-}
-
-export enum E_Priority_Reminders {
-    critical = 'Критический',
-    high = 'Высокий',
-    medium = 'Средний',
-    low = 'Низкий'
-}
-
-export enum E_Status_Reminders {
-    wait = 'Ожидание',
-    done = 'Выполнено',
-    overdue = 'Просрочено'
-}
-
-export enum E_Types_Actions {
-    to = 'Техобслуживание',
-    plan = 'Плановая замена',
-    repair = 'Ремонт',
-    other = 'Прочее'
 }
 
 export type ms_timestamp = number

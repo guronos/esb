@@ -15,7 +15,7 @@
         <el-form-item label="Тип">
             <el-select v-model="reminder.typeAction" placeholder="Выберите тип события">
                 <el-option
-                    v-for="(typeVal, typeKey) in E_Types_Actions"
+                    v-for="(typeVal, typeKey) in Types_Actions"
                     :key="typeKey"
                     :label="typeVal"
                     :value="typeKey"
@@ -25,7 +25,7 @@
         <el-form-item label="Приоритет">
             <el-select v-model="reminder.priorityType" placeholder="Выберите приоритет">
                 <el-option
-                    v-for="(priorityVal, priorityKey) in E_Priority_Reminders"
+                    v-for="(priorityVal, priorityKey) in Priority_Reminders"
                     :key="priorityKey"
                     :label="priorityVal"
                     :value="priorityKey"
@@ -46,7 +46,13 @@
 <script setup lang="ts">
 import { error, getFetch, success } from '@/helpers/main'
 import type { EmitEditingReminderData, Reminder, ReminderEdit } from '@/pages/types'
-import { E_Priority_Reminders, E_Types_Actions, E_Status_Reminders } from '@/pages/types'
+import {
+    E_Priority_Reminders,
+    E_Types_Actions,
+    E_Status_Reminders,
+    Types_Actions,
+    Priority_Reminders
+} from '@/enums/enums'
 import { useMainStore } from '@/stores/mainState'
 import type { FormInstance, FormRules } from 'element-plus'
 import { computed, reactive, ref, toValue } from 'vue'
@@ -63,9 +69,9 @@ const reminder = reactive<Reminder | ReminderEdit>({
     title: '',
     body: '',
     dateAction: '',
-    status: 'wait' as E_Status_Reminders,
-    priorityType: 'low' as E_Priority_Reminders,
-    typeAction: 'other' as E_Types_Actions,
+    status: E_Status_Reminders.wait,
+    priorityType: E_Priority_Reminders.low,
+    typeAction: E_Types_Actions.other,
     author: userData.userId as number,
     userId: userData.userId as number
 })
